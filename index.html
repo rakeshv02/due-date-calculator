@@ -1,110 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROI Calculator — Return on Investment | Tabutility</title>
-  <meta name="description" content="Calculate return on investment (ROI), annualised return, and profit/loss for any investment. Simple and detailed ROI analysis." />
-  <meta name="keywords" content="roi calculator, return on investment, investment return, annualised return, profit calculator" />
-  <link rel="canonical" href="https://roi.tabutility.com/" />
-  <meta property="og:title" content="ROI Calculator — Return on Investment" />
-  <meta property="og:description" content="Calculate ROI, annualised return and profit for any investment instantly." />
-  <meta property="og:type" content="website" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
-  <meta name="robots" content="index, follow" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039091592734005" crossorigin="anonymous"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78VZWJ5B1W"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-78VZWJ5B1W');</script>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pregnancy Due Date Calculator — Tabutility</title>
+<meta name="description" content="Free pregnancy due date calculator. Enter your last period or conception date and get your estimated due date, trimester timeline and key milestones."/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-78VZWJ5B1W"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-78VZWJ5B1W');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039091592734005" crossorigin="anonymous"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh}
+nav{background:#1e293b;border-bottom:1px solid #334155;padding:14px 24px;display:flex;align-items:center;gap:16px}
+nav a{color:#94a3b8;text-decoration:none;font-size:14px}nav a:hover{color:#f1f5f9}
+nav .brand{color:#38bdf8;font-weight:700;font-size:18px}
+.ad-banner{background:#1e293b;border-bottom:1px solid #334155;padding:8px;text-align:center}
+#app{max-width:560px;margin:36px auto;padding:0 20px 40px}
+h1{font-size:26px;font-weight:700;text-align:center;margin-bottom:6px}
+.subtitle{text-align:center;color:#94a3b8;margin-bottom:24px;font-size:14px}
+.card{background:#1e293b;border-radius:18px;padding:22px;border:1px solid #334155;margin-bottom:14px}
+.tabs{display:flex;gap:4px;background:#0f172a;border-radius:10px;padding:4px;margin-bottom:18px}
+.tab{flex:1;border:none;border-radius:7px;padding:9px;font-size:13px;font-weight:600;cursor:pointer;background:none;color:#64748b;transition:all .15s}
+.tab.active{background:#ec4899;color:#fff}
+.field{margin-bottom:14px}
+label{display:block;font-size:13px;color:#94a3b8;margin-bottom:5px}
+input[type=date],input[type=number]{width:100%;background:#0f172a;color:#f1f5f9;border:1px solid #334155;border-radius:10px;padding:11px 14px;font-size:16px}
+input[type=date]{color-scheme:dark}
+.due-box{background:linear-gradient(135deg,#831843,#ec4899);border-radius:16px;padding:28px;text-align:center;margin-bottom:14px}
+.due-label{font-size:13px;color:#fce7f3;margin-bottom:6px}
+.due-date{font-size:36px;font-weight:800;color:#fff}
+.due-sub{font-size:14px;color:#fbcfe8;margin-top:4px}
+.stats-row{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.stat-box{flex:1;min-width:120px;background:#1e293b;border-radius:14px;padding:16px;border:1px solid #334155;text-align:center}
+.stat-num{font-size:26px;font-weight:700;color:#ec4899}
+.stat-lbl{font-size:12px;color:#64748b;margin-top:3px}
+.timeline{display:flex;flex-direction:column;gap:0}
+.milestone-row{padding:12px 0;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center}
+.milestone-row:last-child{border-bottom:none}
+.ms-name{font-size:14px}
+.ms-date{font-size:14px;font-family:monospace;color:#ec4899}
+.ms-week{font-size:12px;color:#64748b;margin-top:2px}
+.trimester-badge{font-size:11px;border-radius:6px;padding:2px 8px;font-weight:700}
+.t1{background:#1e3a5f;color:#93c5fd}
+.t2{background:#14532d;color:#86efac}
+.t3{background:#4a1942;color:#f0abfc}
+</style>
 </head>
-<body style="margin:0;background:#f8faff;font-family:'Segoe UI',Arial,sans-serif">
-<div id="root"></div>
-<script type="text/babel">
-//<![CDATA[
-const { useState } = React;
-function fmt(n){return '$'+Math.abs(Math.round(n)).toLocaleString();}
-function fmtPct(n){return (n>=0?'+':'')+n.toFixed(2)+'%';}
-
-function App() {
-  const [initial, setInitial] = useState(10000);
-  const [final, setFinal] = useState(14500);
-  const [years, setYears] = useState(3);
-  const [fees, setFees] = useState(0);
-
-  const inv = Number(initial)||0;
-  const fin = Number(final)||0;
-  const yrs = Number(years)||1;
-  const fee = Number(fees)||0;
-
-  const netFinal = fin - fee;
-  const profit = netFinal - inv;
-  const roi = inv > 0 ? (profit / inv * 100) : 0;
-  const annualised = inv > 0 && yrs > 0 ? (Math.pow(netFinal/inv, 1/yrs)-1)*100 : 0;
-  const positive = profit >= 0;
-
-  return (
-    <div style={{maxWidth:520,margin:'0 auto',paddingBottom:40}}>
-      <div style={{background:'#1a1a2e',padding:'12px 20px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <a href="https://tabutility.com" style={{color:'#a5b4fc',textDecoration:'none',fontSize:14}}>← All Tools</a>
-        <span style={{color:'#fff',fontWeight:700,fontSize:15}}>⚡ Tabutility</span>
-      </div>
-      <div style={{background:'linear-gradient(135deg,#0891b2,#0e7490)',padding:'28px 20px',textAlign:'center',color:'#fff'}}>
-        <div style={{fontSize:36,marginBottom:8}}>📈</div>
-        <h1 style={{margin:'0 0 6px',fontSize:22,fontWeight:900}}>ROI Calculator</h1>
-        <p style={{margin:0,fontSize:13,opacity:0.85}}>Return on investment · annualised return · profit/loss</p>
-      </div>
-      <div style={{padding:20}}>
-        <div style={{background:'#fff',borderRadius:14,padding:20,boxShadow:'0 2px 12px rgba(0,0,0,0.06)',marginBottom:16}}>
-          {[['Initial Investment','$',initial,setInitial],['Final Value','$',final,setFinal],['Fees / Costs','$',fees,setFees]].map(([label,prefix,val,setter])=>(
-            <div key={label} style={{marginBottom:14}}>
-              <label style={{fontSize:13,fontWeight:600,color:'#374151',display:'block',marginBottom:6}}>{label}</label>
-              <div style={{position:'relative'}}>
-                <span style={{position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',color:'#6b7280'}}>{prefix}</span>
-                <input type="number" value={val} onChange={e=>setter(e.target.value)}
-                  style={{width:'100%',padding:'11px 12px 11px 28px',borderRadius:10,border:'2px solid #e5e7eb',fontSize:16,boxSizing:'border-box'}} />
-              </div>
-            </div>
-          ))}
-          <div>
-            <label style={{fontSize:13,fontWeight:600,color:'#374151',display:'block',marginBottom:6}}>Investment Period (years)</label>
-            <input type="number" value={years} onChange={e=>setYears(e.target.value)} min={0.1} step={0.5}
-              style={{width:'100%',padding:'11px 12px',borderRadius:10,border:'2px solid #e5e7eb',fontSize:16,boxSizing:'border-box'}} />
-          </div>
-        </div>
-
-        <div style={{background: positive?'#f0fdf4':'#fef2f2',borderRadius:14,padding:24,textAlign:'center',marginBottom:16,boxShadow:'0 2px 12px rgba(0,0,0,0.06)'}}>
-          <div style={{fontSize:13,fontWeight:600,color:'#6b7280',marginBottom:4}}>TOTAL ROI</div>
-          <div style={{fontSize:52,fontWeight:900,color: positive?'#059669':'#dc2626'}}>{fmtPct(roi)}</div>
-          <div style={{fontSize:15,color: positive?'#059669':'#dc2626',fontWeight:700}}>{positive?'+':''}{fmt(profit)} {positive?'profit':'loss'}</div>
-        </div>
-
-        <div style={{background:'#fff',borderRadius:14,padding:20,boxShadow:'0 2px 12px rgba(0,0,0,0.06)'}}>
-          {[
-            ['Initial Investment', fmt(inv)],
-            ['Final Value (before fees)', fmt(fin)],
-            ['Fees / Transaction Costs', fee > 0 ? '-'+fmt(fee) : '$0'],
-            ['Net Final Value', fmt(netFinal)],
-            ['Net Profit / Loss', (positive?'+':'-')+fmt(profit)],
-            ['Total ROI', fmtPct(roi)],
-            ['Annualised Return (CAGR)', fmtPct(annualised)+' / yr'],
-          ].map(([l,v])=>(
-            <div key={l} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid #f0f0f0',fontSize:14}}>
-              <span style={{color:'#6b7280'}}>{l}</span>
-              <strong style={{color: l.includes('Loss')||l.includes('Fees')&&fee>0?'#dc2626':l.includes('ROI')||l.includes('Profit')||l.includes('CAGR')?positive?'#059669':'#dc2626':'#1a1a2e'}}>{v}</strong>
-            </div>
-          ))}
-        </div>
-        <div style={{background:'#ecfeff',borderRadius:12,padding:16,marginTop:16,fontSize:13,color:'#0e7490',lineHeight:1.6}}>
-          <strong>CAGR</strong> (Compound Annual Growth Rate) is the annualised ROI — useful when comparing investments held for different time periods.
-        </div>
-      </div>
+<body>
+<nav><span class="brand">⚡ Tabutility</span><a href="https://tabutility.com">← All Tools</a></nav>
+<div class="ad-banner"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7039091592734005" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+<div id="app">
+  <h1>Pregnancy Due Date Calculator</h1>
+  <p class="subtitle">Estimated due date · Trimesters · Key milestones</p>
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" onclick="setMethod('lmp')">Last Period (LMP)</button>
+      <button class="tab" onclick="setMethod('conception')">Conception Date</button>
+      <button class="tab" onclick="setMethod('ultrasound')">Ultrasound</button>
     </div>
-  );
+    <div class="field">
+      <label id="date-label">First day of last period</label>
+      <input type="date" id="date-inp" oninput="calc()"/>
+    </div>
+    <div class="field" id="cycle-field">
+      <label>Cycle length (days)</label>
+      <input type="number" id="cycle-len" value="28" min="20" max="45" oninput="calc()"/>
+    </div>
+    <div class="field" id="weeks-field" style="display:none">
+      <label>Weeks at ultrasound</label>
+      <input type="number" id="us-weeks" placeholder="12" min="4" max="40" oninput="calc()"/>
+    </div>
+  </div>
+  <div id="results" style="display:none">
+    <div class="due-box">
+      <div class="due-label">🤰 Estimated Due Date</div>
+      <div class="due-date" id="due-date"></div>
+      <div class="due-sub" id="due-sub"></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num" id="weeks-preg"></div><div class="stat-lbl">Weeks pregnant</div></div>
+      <div class="stat-box"><div class="stat-num" id="days-left"></div><div class="stat-lbl">Days to go</div></div>
+      <div class="stat-box"><div class="stat-num" id="trimester-num"></div><div class="stat-lbl">Trimester</div></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:14px;font-weight:600;margin-bottom:14px">Key Milestones</h2>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </div>
+</div>
+<script>
+var method = 'lmp';
+var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function setMethod(m){
+  method=m;
+  document.querySelectorAll('.tab').forEach(function(b,i){ b.className='tab'+((['lmp','conception','ultrasound'][i])===m?' active':''); });
+  document.getElementById('cycle-field').style.display=m==='lmp'?'block':'none';
+  document.getElementById('weeks-field').style.display=m==='ultrasound'?'block':'none';
+  var labels={lmp:'First day of last period',conception:'Conception date',ultrasound:'Date of ultrasound'};
+  document.getElementById('date-label').textContent=labels[m];
+  calc();
 }
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-//]]>
+
+function fmtDate(d){ return MONTHS[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear(); }
+function addDays(d,n){ var r=new Date(d); r.setDate(r.getDate()+n); return r; }
+
+function calc(){
+  var dateVal=document.getElementById('date-inp').value;
+  if(!dateVal){ document.getElementById('results').style.display='none'; return; }
+  var inp=new Date(dateVal+'T00:00:00');
+  var lmpDate;
+  if(method==='lmp'){
+    var cycle=parseInt(document.getElementById('cycle-len').value)||28;
+    lmpDate=addDays(inp,-(cycle-28));
+  } else if(method==='conception'){
+    lmpDate=addDays(inp,-14);
+  } else {
+    var usWeeks=parseInt(document.getElementById('us-weeks').value)||12;
+    lmpDate=addDays(inp,-(usWeeks*7));
+  }
+  var dueDate=addDays(lmpDate,280);
+  var today=new Date(); today.setHours(0,0,0,0);
+  var daysPreg=Math.floor((today-lmpDate)/86400000);
+  var weeksPreg=Math.floor(daysPreg/7);
+  var daysLeft=Math.floor((dueDate-today)/86400000);
+  var trimester=weeksPreg<13?1:weeksPreg<27?2:3;
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('due-date').textContent=fmtDate(dueDate);
+  document.getElementById('due-sub').textContent=daysLeft>0?daysLeft+' days to go':daysLeft===0?'Today is your due date!':'Due date was '+Math.abs(daysLeft)+' days ago';
+  document.getElementById('weeks-preg').textContent=Math.max(0,weeksPreg)+'w '+Math.max(0,daysPreg%7)+'d';
+  document.getElementById('days-left').textContent=Math.max(0,daysLeft);
+  document.getElementById('trimester-num').textContent=trimester+'st/nd/rd'.split('/')[trimester-1]||trimester;
+
+  var milestones=[
+    {name:'Heartbeat detectable',week:6,badge:'t1'},
+    {name:'End of 1st Trimester',week:13,badge:'t1'},
+    {name:'Anatomy scan',week:20,badge:'t2'},
+    {name:'Viability milestone',week:24,badge:'t2'},
+    {name:'End of 2nd Trimester',week:27,badge:'t2'},
+    {name:'Full term (early)',week:37,badge:'t3'},
+    {name:'Full term',week:39,badge:'t3'},
+    {name:'Estimated due date',week:40,badge:'t3'},
+  ];
+  var tl=document.getElementById('timeline'); tl.innerHTML='';
+  milestones.forEach(function(m){
+    var mDate=addDays(lmpDate,m.week*7);
+    var past=mDate<today;
+    var row=document.createElement('div'); row.className='milestone-row';
+    row.style.opacity=past?'0.5':'1';
+    row.innerHTML='<div><div class="ms-name">'+(past?'✓ ':'')+m.name+'</div><div class="ms-week">Week '+m.week+'</div></div>'+
+      '<div style="text-align:right"><div class="ms-date">'+fmtDate(mDate)+'</div><span class="trimester-badge '+m.badge+'">T'+({'t1':1,'t2':2,'t3':3}[m.badge])+'</span></div>';
+    tl.appendChild(row);
+  });
+}
 </script>
 </body>
 </html>

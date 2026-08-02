@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://due-date-calculator.tabutility.com/sitemap.xml
